@@ -76,7 +76,7 @@ function success(pos) {
         modal.append(errorP);
       } else if (menu.courses.length == 0) {
         const errorP = document.createElement('p');
-        errorP.innerText = 'Error! No available menu for this restaurant';
+        errorP.innerText = 'No available menu for this restaurant';
         modal.append(errorP);
       } else {
         const div2 = document.createElement('div');

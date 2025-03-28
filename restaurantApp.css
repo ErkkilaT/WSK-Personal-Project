@@ -34,6 +34,9 @@ td {
   display: flex;
   padding: 5px;
 }
+h1 {
+  margin-right: 20px;
+}
 
 .login {
   display: flex;
@@ -56,6 +59,15 @@ input {
 .toggle-button.active {
   background-color: #161b61;
   color: white;
+}
+#mapButton {
+  padding: 0.1rem 0.5rem;
+  border: 2px solid #000000;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 .login-button {
   padding: 0.2rem 0.5rem;
