@@ -29,3 +29,32 @@ td {
   background-color: burlywood;
   font-weight: bold;
 }
+
+.header {
+  display: flex;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-button {
+  padding: 0.1rem 0.5rem;
+  border: 2px solid #000000;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s, color 0.3s;
+}
+.toggle-button.active {
+  background-color: #333;
+  color: white;
+}
+.login-button {
+  padding: 0.2rem 0.5rem;
+  border: 1px solid #000000;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}

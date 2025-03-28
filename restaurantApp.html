@@ -9,14 +9,29 @@
   </head>
 
   <body>
-    <h1>Restaurants</h1>
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Address</th>
-      </tr>
-      <!-- add restaurants here -->
-    </table>
+    <div class="header">
+      <h1>Restaurants</h1>
+      <button class="toggle-button active" id="dayMenu">Day menu</button>
+      <button class="toggle-button" id="weekMenu">Week menu</button>
+      <div class="login">
+        <input type="text" placeholder="Username" id="userName" />
+        <input type="password" placeholder="Password" id="password" />
+      </div>
+      <div class="login">
+        <button class="login-button">Login</button>
+        <button class="login-button">Register</button>
+      </div>
+    </div>
+
+    <div>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Address</th>
+        </tr>
+        <!-- add restaurants here -->
+      </table>
+    </div>
     <!-- modal -->
     <dialog id="modal" closedby="any">
       <!-- add restaurant info here when restaurant is clicked -->
