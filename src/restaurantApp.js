@@ -2,13 +2,14 @@ import {fetchData} from './utils/fetchData.js';
 import {distance} from './utils/euclidean.js';
 import {createModalHTML} from './components/createRestaurantModal.js';
 import {getUser} from './account/getUser.js';
+import {createUserDiv} from './components/createUserDiv.js';
 
 let menuType = 'daily';
 //get restaurant data
 let restaurants = await fetchData(
   'https://media2.edu.metropolia.fi/restaurant/api/v1/restaurants'
 );
-console.log(restaurants);
+
 if (restaurants == -2) {
 }
 
@@ -21,7 +22,7 @@ let startPoint;
 function success(pos) {
   //sort by distance
   const crd = pos.coords;
-  console.log(crd);
+
   startPoint = [crd.longitude, crd.latitude];
   restaurants.sort((a, b) => {
     return (
@@ -29,7 +30,6 @@ function success(pos) {
       distance(startPoint, b.location.coordinates)
     );
   });
-  console.log(restaurants);
 
   //populate it into html and add modal functionality
   const table = document.querySelector('table');
@@ -100,16 +100,16 @@ registerButton.addEventListener('click', () => {
 });
 
 //change login-div if already logged in
-
 const userButton = async () => {
   let user;
-  console.log('token', localStorage.getItem('token'));
-  if (localStorage.getItem('token')) {
+
+  if (localStorage.getItem('token') != null) {
     user = await getUser();
+
+    const loginDiv = document.querySelector('#login-div');
+    const newLoginDiv = createUserDiv(user.username);
+    loginDiv.innerHTML = '';
+    loginDiv.append(newLoginDiv);
   }
-  const loginDiv = document.querySelector('#login-div');
-  loginDiv.innerHTML = '';
-  console.log('user', user);
-  loginDiv.append(document.createTextNode(user.username));
 };
 userButton();

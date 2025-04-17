@@ -3,8 +3,10 @@ export async function fetchData(url, options) {
     const response = await fetch(url, options);
     const json = await response.json();
     if (!response.ok) {
-      throw new Error('Invalid input!');
-      return -2;
+      if (json.message) {
+        throw new Error(`${json.message}, code:${response.status}`);
+      }
+      throw new Error(`Error ${response.status} occured!`);
     }
     return json;
   } catch (error) {
