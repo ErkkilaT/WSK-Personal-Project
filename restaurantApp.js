@@ -1,5 +1,6 @@
 import {fetchData} from './fetchData.js';
 import {distance} from './euclidean.js';
+import {createModalHTML} from './createRestaurantModal.js';
 
 let menuType = 'daily';
 //get restaurant data
@@ -42,7 +43,7 @@ function success(pos) {
 
   //populate it into html and add modal functionality
   const table = document.querySelector('table');
-  const modal = document.querySelector('#modal');
+  const modalData = document.querySelector('#modalData');
   let lastHighlight;
   for (const restaurant of restaurants) {
     const tr = document.createElement('tr');
@@ -50,9 +51,10 @@ function success(pos) {
       if (lastHighlight) lastHighlight.classList.remove('highlight');
       tr.classList.add('highlight');
       lastHighlight = tr;
-
-      modal.innerHTML = '';
-      const nameH3 = document.createElement('h3');
+      //populate restaurant info
+      modalData.innerHTML = '';
+      const modalHTML = await createModalHTML(restaurant, menuType);
+      /*onst nameH3 = document.createElement('h3');
       nameH3.innerText = restaurant.name;
       const addressP = document.createElement('p');
       addressP.innerText = restaurant.address;
@@ -67,37 +69,13 @@ function success(pos) {
       const div1 = document.createElement('div');
       div1.append(nameH3, addressP, postalCodeP, cityP, phoneNumberP, companyP);
 
-      const menu = await fetchData(
-        `https://media2.edu.metropolia.fi/restaurant/api/v1/restaurants/daily/${restaurant._id}/fi`
-      );
-      if (menu == -2) {
-        const errorP = document.createElement('p');
-        errorP.innerText = 'Error! Could not retrieve menu!';
-        modal.append(errorP);
-      } else if (menu.courses.length == 0) {
-        const errorP = document.createElement('p');
-        errorP.innerText = 'No available menu for this restaurant';
-        modal.append(errorP);
-      } else {
-        const div2 = document.createElement('div');
-        const dialogTable = document.createElement('table');
-        for (let course of menu.courses) {
-          const dialogTr = document.createElement('tr');
-          const courseName = document.createElement('td');
-          const coursePrice = document.createElement('td');
-          const courseAllergies = document.createElement('td');
-          courseName.innerText = course.name;
-          coursePrice.innerText = course.price;
-          courseAllergies.innerText = course.diets;
-
-          dialogTr.append(courseName, coursePrice, courseAllergies);
-          dialogTable.append(dialogTr);
-        }
-        div2.append(dialogTable);
-        modal.append(div2);
-      }
-      modal.append(document.createElement('hr'), div1);
-      modal.showModal();
+      //populate menu
+      const menu =
+        menuType == 'daily'
+          ? await getDailyMenuTable(restaurant._id)
+          : await getWeeklyMenuTable(restaurant._id);*/
+      modalData.append(modalHTML);
+      document.querySelector('#modal').showModal();
     });
 
     const nameTd = document.createElement('td');

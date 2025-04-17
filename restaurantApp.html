@@ -11,8 +11,7 @@
   <body>
     <div class="header">
       <h1>Restaurants</h1>
-      <button class="toggle-button active" id="dayMenu">Day menu</button>
-      <button class="toggle-button" id="weekMenu">Week menu</button>
+
       <button id="mapButton">Show restaurants on a map</button>
       <div class="login">
         <input type="text" placeholder="Username" id="userName" />
@@ -37,6 +36,9 @@
     <!-- modal -->
     <dialog id="modal" closedby="any">
       <!-- add restaurant info here when restaurant is clicked -->
+      <button class="toggle-button active" id="dayMenu">Today's menu</button>
+      <button class="toggle-button" id="weekMenu">This week's menu</button>
+      <div id="modalData"></div>
     </dialog>
   </body>
 </html>
