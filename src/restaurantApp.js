@@ -1,6 +1,7 @@
 import {fetchData} from './utils/fetchData.js';
 import {distance} from './utils/euclidean.js';
 import {createModalHTML} from './components/createRestaurantModal.js';
+import {getUser} from './account/getUser.js';
 
 let menuType = 'daily';
 //get restaurant data
@@ -91,5 +92,24 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 //navigate to login page
 const loginButton = document.querySelector('#login');
 loginButton.addEventListener('click', () => {
-  window.location.href = './account/account.html';
+  window.location.href = './account/login.html';
 });
+const registerButton = document.querySelector('#register');
+registerButton.addEventListener('click', () => {
+  window.location.href = './account/register.html';
+});
+
+//change login-div if already logged in
+
+const userButton = async () => {
+  let user;
+  console.log('token', localStorage.getItem('token'));
+  if (localStorage.getItem('token')) {
+    user = await getUser();
+  }
+  const loginDiv = document.querySelector('#login-div');
+  loginDiv.innerHTML = '';
+  console.log('user', user);
+  loginDiv.append(document.createTextNode(user.username));
+};
+userButton();
