@@ -1,4 +1,4 @@
-import {fetchData} from './fetchData.js';
+import {fetchData} from '../utils/fetchData.js';
 //gets daily meny and creates a html table and returns it in a <div>
 export const getDailyMenuTable = async (restaurantId) => {
   const menu = await fetchData(
@@ -10,7 +10,7 @@ export const getDailyMenuTable = async (restaurantId) => {
     return errorP;
   } else if (menu.courses.length == 0) {
     const errorP = document.createElement('p');
-    errorP.innerText = 'No available menu for this restaurant';
+    errorP.innerText = 'No daily menu available for this restaurant';
     return errorP;
   } else {
     const div2 = document.createElement('div');
@@ -44,12 +44,12 @@ export const getWeeklyMenuTable = async (restaurantId) => {
     return errorP;
   } else if (menu.days.length == 0) {
     const errorP = document.createElement('p');
-    errorP.innerText = 'No available menu for this restaurant';
+    errorP.innerText = 'No weekly menu available for this restaurant';
     return errorP;
   } else {
     const div2 = document.createElement('div');
     for (let day of menu.days) {
-      const date = document.createElement('h3');
+      const date = document.createElement('h4');
       date.innerText = day.date.charAt(0).toUpperCase() + day.date.slice(1);
       const dialogTable = document.createElement('table');
       for (let course of day.courses) {
