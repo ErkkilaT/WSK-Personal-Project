@@ -76,3 +76,17 @@ input {
   cursor: pointer;
   border-radius: 4px;
 }
+
+.star-button {
+  font-size: 0.9rem;
+  transform: scale(2);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.star-button:hover {
+  color: gold;
+}
+.star-button.favourited {
+  color: gold;
+}

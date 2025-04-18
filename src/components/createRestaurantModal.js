@@ -1,9 +1,10 @@
 import {getDailyMenuTable, getWeeklyMenuTable} from './getMenuTables.js';
+import {getMenuType} from '../utils/staticVariables.js';
 
-export const createModalHTML = async (restaurant, menuType) => {
+export const createModalHTML = async (restaurant) => {
   //populate menu
   const menu =
-    menuType == 'daily'
+    getMenuType() == 'daily'
       ? await getDailyMenuTable(restaurant._id)
       : await getWeeklyMenuTable(restaurant._id);
 

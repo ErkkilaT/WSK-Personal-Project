@@ -2,8 +2,17 @@ import {fetchData} from './utils/fetchData.js';
 import {distance} from './utils/euclidean.js';
 import {createModalHTML} from './components/createRestaurantModal.js';
 import {getUser} from './account/getUser.js';
+import {createUserDiv} from './components/createUserDiv.js';
+import {
+  setSelectedRestaurant,
+  getSelectedRestaurant,
+  getMenuType,
+  setMenuType,
+  getLocalUser,
+  setLocalUser,
+} from './utils/staticVariables.js';
+import {updateFavourite} from './account/updateFavourite.js';
 
-let menuType = 'daily';
 //get restaurant data
 let restaurants = await fetchData(
   'https://media2.edu.metropolia.fi/restaurant/api/v1/restaurants'
@@ -11,6 +20,14 @@ let restaurants = await fetchData(
 
 if (restaurants == -2) {
 }
+
+const userExists = async () => {
+  if (localStorage.getItem('token') != null) {
+    setLocalUser(await getUser());
+  }
+};
+await userExists();
+//change login-div if already logged in
 
 //sort data
 /*restaurants.sort((a, b) => {
@@ -30,7 +47,7 @@ const options = {
   maximumAge: 0,
 };
 let startPoint;
-let selectedRestaurant = null;
+
 function success(pos) {
   //sort by distance
   const crd = pos.coords;
@@ -49,17 +66,18 @@ function success(pos) {
   const modalData = document.querySelector('#modalData');
 
   let lastHighlight;
+  let lastFavourite;
   for (const restaurant of restaurants) {
     const tr = document.createElement('tr');
     tr.addEventListener('click', async () => {
       if (lastHighlight) lastHighlight.classList.remove('highlight');
       tr.classList.add('highlight');
       lastHighlight = tr;
-      selectedRestaurant = restaurant;
+      setSelectedRestaurant(restaurant);
 
       //populate restaurant info
       modalData.innerHTML = '';
-      const modalHTML = await createModalHTML(restaurant, menuType);
+      const modalHTML = await createModalHTML(restaurant);
       modalData.append(modalHTML);
       document.querySelector('#modal').showModal();
     });
@@ -71,6 +89,35 @@ function success(pos) {
     const cityTd = document.createElement('td');
     cityTd.innerText = restaurant.city;
     tr.append(nameTd, addressTd, cityTd);
+
+    if (getLocalUser() != null) {
+      const favouriteTd = document.createElement('td');
+      const favouriteStar = document.createElement('button');
+      favouriteStar.setAttribute('class', 'star-button');
+      favouriteStar.innerText = String.fromCharCode(9734);
+      favouriteTd.append(favouriteStar);
+      favouriteStar.addEventListener('click', (evt) => {
+        evt.stopPropagation();
+      });
+      favouriteStar.addEventListener('click', () => {
+        if (lastFavourite) lastFavourite.classList.remove('favourited');
+        favouriteStar.innerText = String.fromCharCode(9733);
+        favouriteStar.classList.add('favourited');
+        lastFavourite.innerText = String.fromCharCode(9734);
+        lastFavourite = favouriteStar;
+        updateFavourite(restaurant._id);
+        setLocalUser({...getLocalUser(), favouriteRestaurant: restaurant._id});
+        updateLoginDiv();
+      });
+      if (getLocalUser().favouriteRestaurant == restaurant._id) {
+        if (lastFavourite) lastFavourite.classList.remove('favourited');
+        favouriteStar.innerText = String.fromCharCode(9733);
+        favouriteStar.classList.add('favourited');
+        lastFavourite = favouriteStar;
+      }
+      tr.append(favouriteTd);
+    }
+
     table.append(tr);
   }
 
@@ -80,18 +127,18 @@ function success(pos) {
   dayButton.addEventListener('click', async () => {
     weekButton.classList.remove('active');
     dayButton.classList.add('active');
-    menuType = 'daily';
+    setMenuType('daily');
 
-    const modalHTML = await createModalHTML(selectedRestaurant, menuType);
+    const modalHTML = await createModalHTML(getSelectedRestaurant());
     modalData.innerHTML = '';
     modalData.append(modalHTML);
   });
   weekButton.addEventListener('click', async () => {
     dayButton.classList.remove('active');
     weekButton.classList.add('active');
-    menuType = 'weekly';
+    setMenuType('weekly');
 
-    const modalHTML = await createModalHTML(selectedRestaurant, menuType);
+    const modalHTML = await createModalHTML(getSelectedRestaurant());
     modalData.innerHTML = '';
     modalData.append(modalHTML);
   });
@@ -112,64 +159,20 @@ registerButton.addEventListener('click', () => {
   window.location.href = './account/register.html';
 });
 
-//change login-div if already logged in
-const userDiv = async () => {
-  let user;
+const updateLoginDiv = () => {
+  const loginDiv = document.querySelector('#login-div');
+  const newLoginDiv = createUserDiv(getLocalUser(), restaurants);
+  loginDiv.innerHTML = '';
+  loginDiv.append(newLoginDiv);
+};
 
-  if (localStorage.getItem('token') != null) {
-    user = await getUser();
-
-    const loginDiv = document.querySelector('#login-div');
-    const newLoginDiv = createUserDiv(user);
-    loginDiv.innerHTML = '';
-    loginDiv.append(newLoginDiv);
+const updateLoggedIn = () => {
+  if (getLocalUser() != null) {
+    //user = await getUser();
+    updateLoginDiv();
+    const favouriteTh = document.createElement('th');
+    favouriteTh.innerText = 'Favourite';
+    document.querySelector('#table-header').append(favouriteTh);
   }
 };
-userDiv();
-
-const createUserDiv = (user) => {
-  const div = document.createElement('div');
-
-  const name = document.createElement('p');
-  name.append(document.createTextNode(user.username));
-
-  const profileButton = document.createElement('button');
-  profileButton.append(document.createTextNode('Profile'));
-  profileButton.addEventListener('click', () => {
-    location.href = './account/profile.html';
-  });
-
-  const logOutButton = document.createElement('button');
-  logOutButton.append(document.createTextNode('Logout'));
-  //logOutButton.setAttribute('id', 'logout-button');
-  logOutButton.addEventListener('click', () => {
-    localStorage.removeItem('token');
-    location.reload();
-  });
-  console.log(user);
-  div.append(name, profileButton, logOutButton);
-  if (user.favouriteRestaurant) {
-    const favouriteButton = document.createElement('button');
-    favouriteButton.setAttribute('id', 'favouriteButton');
-    const favourite = restaurants.find((restaurant) => {
-      return restaurant._id == user.favouriteRestaurant;
-    });
-    console.log(favourite.name);
-    favouriteButton.append(
-      document.createTextNode('Näytä ' + favourite.name + ' menu')
-    );
-    div.append(favouriteButton);
-    favouriteButton.addEventListener('click', async () => {
-      selectedRestaurant = favourite;
-      console.log(favourite);
-      const modalHTML = await createModalHTML(favourite, menuType);
-      const modal = document.querySelector('#modalData');
-      modal.innerHTML = '';
-      modal.append(modalHTML);
-
-      document.querySelector('#modal').showModal();
-    });
-  }
-
-  return div;
-};
+updateLoggedIn();
