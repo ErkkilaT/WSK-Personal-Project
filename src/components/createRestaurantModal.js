@@ -1,5 +1,9 @@
 import {getDailyMenuTable, getWeeklyMenuTable} from './getMenuTables.js';
-import {getMenuType} from '../utils/staticVariables.js';
+import {
+  getMenuType,
+  setMenuType,
+  getSelectedRestaurant,
+} from '../utils/staticVariables.js';
 
 export const createModalHTML = async (restaurant) => {
   //populate menu
@@ -28,3 +32,25 @@ export const createModalHTML = async (restaurant) => {
   resultDiv.append(menu, document.createElement('hr'), div1);
   return resultDiv;
 };
+
+//menu type selection
+const dayButton = document.querySelector('#dayMenu');
+const weekButton = document.querySelector('#weekMenu');
+dayButton.addEventListener('click', async () => {
+  weekButton.classList.remove('active');
+  dayButton.classList.add('active');
+  setMenuType('daily');
+
+  const modalHTML = await createModalHTML(getSelectedRestaurant());
+  modalData.innerHTML = '';
+  modalData.append(modalHTML);
+});
+weekButton.addEventListener('click', async () => {
+  dayButton.classList.remove('active');
+  weekButton.classList.add('active');
+  setMenuType('weekly');
+
+  const modalHTML = await createModalHTML(getSelectedRestaurant());
+  modalData.innerHTML = '';
+  modalData.append(modalHTML);
+});

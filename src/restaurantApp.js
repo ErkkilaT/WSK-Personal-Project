@@ -19,16 +19,12 @@ let restaurants = await fetchData(
   'https://media2.edu.metropolia.fi/restaurant/api/v1/restaurants'
 );
 
-if (restaurants == -2) {
-}
-
 const userExists = async () => {
   if (localStorage.getItem('token') != null) {
     setLocalUser(await getUser());
   }
 };
 await userExists();
-//change login-div if already logged in
 
 //sort data
 restaurants.sort((a, b) => {
@@ -36,30 +32,8 @@ restaurants.sort((a, b) => {
   b.city.toLowerCase();
   return a.city < b.city ? -1 : 1;
 });
-//populate it into html and add modal functionality
+//populate table and add modal functionality
 createMainTable(restaurants);
-
-//menu type selection
-const dayButton = document.querySelector('#dayMenu');
-const weekButton = document.querySelector('#weekMenu');
-dayButton.addEventListener('click', async () => {
-  weekButton.classList.remove('active');
-  dayButton.classList.add('active');
-  setMenuType('daily');
-
-  const modalHTML = await createModalHTML(getSelectedRestaurant());
-  modalData.innerHTML = '';
-  modalData.append(modalHTML);
-});
-weekButton.addEventListener('click', async () => {
-  dayButton.classList.remove('active');
-  weekButton.classList.add('active');
-  setMenuType('weekly');
-
-  const modalHTML = await createModalHTML(getSelectedRestaurant());
-  modalData.innerHTML = '';
-  modalData.append(modalHTML);
-});
 
 //navigate to login page
 const loginButton = document.querySelector('#login');
@@ -71,7 +45,7 @@ registerButton.addEventListener('click', () => {
   window.location.href = './account/register.html';
 });
 
-//filtering
+//filtering the table
 createFilter(restaurants);
 
 //create map
