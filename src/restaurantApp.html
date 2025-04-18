@@ -22,7 +22,17 @@
   <body>
     <div class="header">
       <h1>Restaurants</h1>
-
+      <div id="select-div">
+        <label for="filter-city">Filter by city:</label>
+        <select name="filter-city" id="filter-city">
+          <option value="" selected disabled hidden>Choose</option>
+        </select>
+        <label for="filter-company">Filter by company:</label>
+        <select name="filter-company" id="filter-company">
+          <option value="" selected disabled hidden>Choose</option>
+        </select>
+        <button id="reset-filter-button">Reset</button>
+      </div>
       <div class="login" id="login-div">
         <button class="login-button" id="login">Login</button>
         <button class="register-button" id="register">Register</button>
@@ -31,11 +41,14 @@
 
     <div>
       <table>
-        <tr id="table-header">
-          <th>Name</th>
-          <th>Address</th>
-          <th>City</th>
-        </tr>
+        <thead>
+          <tr id="table-header">
+            <th>Name</th>
+            <th>Address</th>
+            <th>City</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
         <!-- add restaurants here -->
       </table>
     </div>
