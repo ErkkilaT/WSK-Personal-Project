@@ -90,3 +90,11 @@ input {
 .star-button.favourited {
   color: gold;
 }
+
+#map {
+  height: 50dvh;
+  width: 70dvw;
+  border: solid;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}

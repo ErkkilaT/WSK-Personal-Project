@@ -4,7 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Restaurants</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
     <link rel="stylesheet" href="restaurantApp.css" />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <script src="restaurantApp.js" type="module" defer></script>
   </head>
 
@@ -12,7 +23,6 @@
     <div class="header">
       <h1>Restaurants</h1>
 
-      <button id="mapButton">Show restaurants on a map</button>
       <div class="login" id="login-div">
         <button class="login-button" id="login">Login</button>
         <button class="register-button" id="register">Register</button>
@@ -36,5 +46,7 @@
       <button class="toggle-button" id="weekMenu">This week's menu</button>
       <div id="modalData"></div>
     </dialog>
+
+    <div id="map"></div>
   </body>
 </html>
