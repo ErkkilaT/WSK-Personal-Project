@@ -5,7 +5,6 @@ import {createUserDiv} from './components/createUserDiv.js';
 import {
   setSelectedRestaurant,
   getSelectedRestaurant,
-  getMenuType,
   setMenuType,
   getLocalUser,
   setLocalUser,

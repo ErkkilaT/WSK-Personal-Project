@@ -5,7 +5,6 @@ import {
 } from '../utils/staticVariables.js';
 export const createUserDiv = (user, restaurants) => {
   const div = document.createElement('div');
-
   const name = document.createElement('p');
   name.append(document.createTextNode(user.username));
 
@@ -46,6 +45,16 @@ export const createUserDiv = (user, restaurants) => {
 
       document.querySelector('#modal').showModal();
     });
+  }
+
+  if (user.avatar) {
+    const image = document.createElement('img');
+    image.setAttribute(
+      'src',
+      'https://media2.edu.metropolia.fi/restaurant/uploads/' + user.avatar
+    );
+    image.setAttribute('alt', 'avatar');
+    div.append(image);
   }
 
   return div;

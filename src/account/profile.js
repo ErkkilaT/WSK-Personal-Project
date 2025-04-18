@@ -45,3 +45,29 @@ profileForm.addEventListener('submit', async (evt) => {
     alert("Your passwords don't match or you didn't change anything");
   }
 });
+
+//file upload
+const fileForm = document.querySelector('#file-form');
+fileForm.addEventListener('submit', async (evt) => {
+  evt.preventDefault();
+  const fileInput = document.querySelector('#file');
+  const formData = new FormData();
+  formData.append('avatar', fileInput.files[0]);
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer: ' + localStorage.getItem('token'),
+    },
+    body: formData,
+  };
+  const result = await fetchData(
+    'https://media2.edu.metropolia.fi/restaurant/api/v1/users/avatar',
+    fetchOptions
+  );
+  console.log(result);
+  if (result.message == 'avatar uploaded') {
+    //window.location.href = '../restaurantApp.html';
+  } else {
+    alert('Error');
+  }
+});
