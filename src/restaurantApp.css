@@ -98,3 +98,13 @@ input {
   margin-left: 10px;
   margin-bottom: 10px;
 }
+
+#select-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}

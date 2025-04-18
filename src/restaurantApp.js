@@ -77,20 +77,20 @@ createFilter(restaurants);
 //create map
 createMap(restaurants);
 
-const updateLoginDiv = () => {
+export const updateLoginDiv = (restaurants) => {
   const loginDiv = document.querySelector('#login-div');
   const newLoginDiv = createUserDiv(getLocalUser(), restaurants);
   loginDiv.innerHTML = '';
   loginDiv.append(newLoginDiv);
 };
 
-const updateLoggedIn = () => {
+export const updateLoggedIn = (restaurants) => {
   if (getLocalUser() != null) {
     //user = await getUser();
-    updateLoginDiv();
+    updateLoginDiv(restaurants);
     const favouriteTh = document.createElement('th');
     favouriteTh.innerText = 'Favourite';
     document.querySelector('#table-header').append(favouriteTh);
   }
 };
-updateLoggedIn();
+updateLoggedIn(restaurants);

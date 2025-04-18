@@ -6,6 +6,8 @@ import {
   setLocalUser,
 } from '../utils/staticVariables.js';
 import {createModalHTML} from './createRestaurantModal.js';
+import {updateFavourite} from '../account/updateFavourite.js';
+import {updateLoginDiv} from '../restaurantApp.js';
 
 export const createMainTable = (restaurants) => {
   const table = document.querySelector('tbody');
@@ -54,7 +56,7 @@ export const createMainTable = (restaurants) => {
         lastFavourite = favouriteStar;
         updateFavourite(restaurant._id);
         setLocalUser({...getLocalUser(), favouriteRestaurant: restaurant._id});
-        updateLoginDiv();
+        updateLoginDiv(restaurants);
       });
       if (getLocalUser().favouriteRestaurant == restaurant._id) {
         if (lastFavourite) lastFavourite.classList.remove('favourited');
