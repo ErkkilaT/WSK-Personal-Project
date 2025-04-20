@@ -16,13 +16,11 @@ export const createUserDiv = (user, restaurants) => {
     const favourite = restaurants.find((restaurant) => {
       return restaurant._id == user.favouriteRestaurant;
     });
-    console.log(favourite.name);
     favouriteButton.append(
       document.createTextNode('Show ' + favourite.name + ' menu')
     );
     div.append(favouriteButton);
     favouriteButton.addEventListener('click', async () => {
-      console.log(favourite);
       setSelectedRestaurant(favourite);
       const modalHTML = await createModalHTML(favourite);
       const modal = document.querySelector('#modalData');

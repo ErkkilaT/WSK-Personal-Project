@@ -15,5 +15,4 @@ export const updateFavourite = async (id) => {
     'https://media2.edu.metropolia.fi/restaurant/api/v1/users',
     fetchOptions
   );
-  console.log(result);
 };

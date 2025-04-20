@@ -18,7 +18,7 @@ registerForm.addEventListener('submit', async (evt) => {
     'https://media2.edu.metropolia.fi/restaurant/api/v1/auth/login',
     fetchOptions
   );
-  console.log(result);
+
   if (result.message == 'Login successful') {
     window.localStorage.setItem('token', result.token);
     window.location.href = '../restaurantApp.html';

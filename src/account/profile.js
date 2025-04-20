@@ -35,7 +35,7 @@ profileForm.addEventListener('submit', async (evt) => {
       'https://media2.edu.metropolia.fi/restaurant/api/v1/users',
       fetchOptions
     );
-    console.log(result);
+
     if (result.message == 'user modified') {
       //window.location.href = '../restaurantApp.html';
     } else {
@@ -64,7 +64,7 @@ fileForm.addEventListener('submit', async (evt) => {
     'https://media2.edu.metropolia.fi/restaurant/api/v1/users/avatar',
     fetchOptions
   );
-  console.log(result);
+
   if (result.message == 'avatar uploaded') {
     //window.location.href = '../restaurantApp.html';
   } else {

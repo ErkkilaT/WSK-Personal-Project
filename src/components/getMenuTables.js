@@ -37,7 +37,6 @@ export const getWeeklyMenuTable = async (restaurantId) => {
   const menu = await fetchData(
     `https://media2.edu.metropolia.fi/restaurant/api/v1/restaurants/weekly/${restaurantId}/fi`
   );
-  console.log(menu.days);
   if (menu == -2) {
     const errorP = document.createElement('p');
     errorP.innerText = 'Error! Could not retrieve menu!';

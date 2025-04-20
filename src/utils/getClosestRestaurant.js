@@ -19,7 +19,6 @@ export const getClosestRestaurant = (restaurants) => {
         distance(startPoint, b.location.coordinates)
       );
     });
-    console.log(restaurantCopy[0]);
     return restaurantCopy[0];
   }
   function error(err) {

@@ -14,7 +14,6 @@ export const createMainTable = (restaurants) => {
   const table = document.querySelector('tbody');
   table.innerHTML = '';
   const modalData = document.querySelector('#modalData');
-  console.log(restaurants);
   let lastHighlight;
   let lastFavourite;
   for (const restaurant of restaurants) {
