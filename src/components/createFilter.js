@@ -1,4 +1,5 @@
 import {createMainTable} from './createMainTable.js';
+//populates options for select-filter
 const createFilterOptions = (items, type) => {
   const select = document.querySelector(type);
   select.innerHTML = '';
@@ -17,8 +18,7 @@ const createFilterOptions = (items, type) => {
 };
 
 export const createFilter = (restaurants) => {
-  //to filter both at same time
-
+  //filter by cities
   const filterCity = document.querySelector('#filter-city');
   const cities = restaurants.map((restaurant) => restaurant.city);
   const uniqueArr = [...new Set(cities)];
@@ -31,6 +31,7 @@ export const createFilter = (restaurants) => {
     createMainTable(newRestraurantsArr);
   });
 
+  //filter by company
   const filterCompany = document.querySelector('#filter-company');
   const companies = restaurants.map((restaurant) => restaurant.company);
   const uniqueCompanyArr = [...new Set(companies)];

@@ -3,6 +3,8 @@ import {
   setSelectedRestaurant,
   getSelectedRestaurant,
 } from '../utils/staticVariables.js';
+
+//returns div for top of page if user is logged in
 export const createUserDiv = (user, restaurants) => {
   const div = document.createElement('div');
   div.classList.add('user-div');

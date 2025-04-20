@@ -9,6 +9,7 @@ import {createModalHTML} from './createRestaurantModal.js';
 import {updateFavourite} from '../account/updateFavourite.js';
 import {updateLoginDiv} from '../restaurantApp.js';
 
+//creates the primary table
 export const createMainTable = (restaurants) => {
   const table = document.querySelector('tbody');
   table.innerHTML = '';
@@ -39,6 +40,7 @@ export const createMainTable = (restaurants) => {
     cityTd.innerText = restaurant.city;
     tr.append(nameTd, addressTd, cityTd);
 
+    //add favourite-star if logged in
     if (getLocalUser() != null) {
       const favouriteTd = document.createElement('td');
       const favouriteStar = document.createElement('button');

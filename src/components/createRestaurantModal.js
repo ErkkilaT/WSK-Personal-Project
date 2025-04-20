@@ -5,6 +5,7 @@ import {
   getSelectedRestaurant,
 } from '../utils/staticVariables.js';
 
+//creates restaurant modal
 export const createModalHTML = async (restaurant) => {
   //populate menu
   const menu =

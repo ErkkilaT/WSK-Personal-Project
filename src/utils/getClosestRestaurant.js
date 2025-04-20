@@ -1,3 +1,4 @@
+//WIPWIPWIP
 import {distance} from './euclidean.js';
 export const getClosestRestaurant = (restaurants) => {
   const options = {

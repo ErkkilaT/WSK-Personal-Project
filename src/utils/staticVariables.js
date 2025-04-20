@@ -15,6 +15,7 @@ export const getMenuType = () => {
   return menuType;
 };
 
+//localUser used when not needed to check valid login(getUser() called when auth needed)
 export let localUser;
 export const setLocalUser = (newLocalUser) => {
   localUser = newLocalUser;

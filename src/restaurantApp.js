@@ -19,6 +19,7 @@ let restaurants = await fetchData(
   'https://media2.edu.metropolia.fi/restaurant/api/v1/restaurants'
 );
 
+//check if a valid user is logged in
 const userExists = async () => {
   if (localStorage.getItem('token') != null) {
     const user = await getUser();

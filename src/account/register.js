@@ -1,16 +1,4 @@
 import {fetchData} from '../utils/fetchData.js';
-/*
-const loginButton = document.querySelector('#register-button');
-loginButton.addEventListener('click', () => {
-  const fetchOptions = {
-    method: 'POST',
-    headers: {
-      Authorization: 'Bearer: ' + token,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-
-});*/
 
 const registerForm = document.querySelector('#register-form');
 registerForm.addEventListener('submit', async (evt) => {
