@@ -5,24 +5,9 @@ import {
 } from '../utils/staticVariables.js';
 export const createUserDiv = (user, restaurants) => {
   const div = document.createElement('div');
-  const name = document.createElement('p');
-  name.append(document.createTextNode(user.username));
+  div.classList.add('user-div');
 
-  const profileButton = document.createElement('button');
-  profileButton.append(document.createTextNode('Profile'));
-  profileButton.addEventListener('click', () => {
-    location.href = './account/profile.html';
-  });
-
-  const logOutButton = document.createElement('button');
-  logOutButton.append(document.createTextNode('Logout'));
-  //logOutButton.setAttribute('id', 'logout-button');
-  logOutButton.addEventListener('click', () => {
-    localStorage.removeItem('token');
-    location.reload();
-  });
-  console.log(user);
-  div.append(name, profileButton, logOutButton);
+  //favourite restaurant button if exists
   if (user.favouriteRestaurant) {
     const favouriteButton = document.createElement('button');
     favouriteButton.setAttribute('id', 'favouriteButton');
@@ -46,7 +31,30 @@ export const createUserDiv = (user, restaurants) => {
       document.querySelector('#modal').showModal();
     });
   }
+  //username
+  const nameP = document.createElement('p');
+  nameP.append(document.createTextNode(user.username));
 
+  //buttons
+  const profileButton = document.createElement('button');
+  profileButton.append(document.createTextNode('Profile'));
+  profileButton.addEventListener('click', () => {
+    location.href = './account/profile.html';
+  });
+  const logOutButton = document.createElement('button');
+  logOutButton.append(document.createTextNode('Logout'));
+  //logOutButton.setAttribute('id', 'logout-button');
+  logOutButton.addEventListener('click', () => {
+    localStorage.removeItem('token');
+    location.reload();
+  });
+  const buttonDiv = document.createElement('div');
+  buttonDiv.append(profileButton, logOutButton);
+  buttonDiv.classList.add('button-div');
+
+  div.append(nameP);
+
+  //add avatar if exists
   if (user.avatar) {
     const image = document.createElement('img');
     image.setAttribute(
@@ -56,6 +64,6 @@ export const createUserDiv = (user, restaurants) => {
     image.setAttribute('alt', 'avatar');
     div.append(image);
   }
-
+  div.append(buttonDiv);
   return div;
 };

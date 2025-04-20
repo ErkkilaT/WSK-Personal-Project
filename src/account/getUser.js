@@ -10,6 +10,5 @@ export const getUser = async () => {
     'https://media2.edu.metropolia.fi/restaurant/api/v1/users/token',
     fetchOptions
   );
-
   return result;
 };

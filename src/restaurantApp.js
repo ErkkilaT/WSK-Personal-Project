@@ -21,7 +21,9 @@ let restaurants = await fetchData(
 
 const userExists = async () => {
   if (localStorage.getItem('token') != null) {
-    setLocalUser(await getUser());
+    const user = await getUser();
+    console.log(user);
+    if (user != null) setLocalUser(user);
   }
 };
 await userExists();

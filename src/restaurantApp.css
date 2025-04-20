@@ -60,15 +60,7 @@ input {
   background-color: #161b61;
   color: white;
 }
-#mapButton {
-  padding: 0.1rem 0.5rem;
-  border: 2px solid #000000;
-  background-color: white;
-  cursor: pointer;
-  border-radius: 8px;
-  margin-left: 20px;
-  margin-right: 20px;
-}
+
 .login-button {
   padding: 0.2rem 0.5rem;
   border: 1px solid #000000;
@@ -107,4 +99,33 @@ input {
   gap: 5px;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.user-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  gap: 5px;
+}
+
+.button-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+#favouriteButton {
+  border: 2px solid #000000;
+  background-color: #161b61bd;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-left: 20px;
+  margin-right: 20px;
+  min-height: 5rem;
 }
